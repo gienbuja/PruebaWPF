@@ -1,0 +1,226 @@
+﻿<Window x:Class="PruebaTecnWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PruebaTecnWPF"
+        xmlns:localModel="clr-namespace:PruebaTecnWPF.ViewModels"
+        mc:Ignorable="d"
+        Title="CRUD Productos Prueba Tecnica" Height="550" Width="700">
+    <Window.Resources>
+        <Style x:Key="BotonDanger" TargetType="Button">
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkRed"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Gray"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BotonSuccess" TargetType="Button">
+            <Setter Property="Background" Value="Green"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="5"
+                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkGreen"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Gray"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BotonWarning" TargetType="Button">
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+        Background="{TemplateBinding Background}"
+        BorderBrush="{TemplateBinding BorderBrush}"
+        BorderThickness="{TemplateBinding BorderThickness}"
+        CornerRadius="5"
+        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkOrange"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Gray"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <localModel:MainViewModel />
+    </Window.DataContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Bienvenido al modulo de productos" FontWeight="Bold" FontSize="20"/>
+        <DataGrid Grid.Row="1" IsReadOnly="true" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="ID" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn  Binding="{Binding Name}" Width="150">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Nombre" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Width="*">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Descripcion" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Price, StringFormat='{}{0:C}'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Precio" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn  Binding="{Binding Stock}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Stock" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="80">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Acciones" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Eliminar" ToolTip="Elimina el registro" Style="{StaticResource BotonDanger}"
+                                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}" 
+                                    Margin="2">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0">
+                <StackPanel>
+                    <Label Margin="5" HorizontalAlignment="Center" Content="{Binding Mensaje}" FontWeight="Bold" FontSize="18"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Nombre" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="5" FontWeight="Bold"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Margin="1"  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <Label Content="Descripcion" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="5" FontWeight="Bold"/>
+
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"
+                            TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="1" Height="60"  />
+
+                        <Label Content="Precio" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="5" FontWeight="Bold"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="1"  Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"  />
+
+                        <Label Content="Stock" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="5" FontWeight="Bold"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="1" Text="{Binding Stock, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
+                <StackPanel>
+                    <Button Content="Añadir" Command="{Binding AddCommand}" Style="{StaticResource BotonSuccess}" Margin="5"/>
+                    <Button Content="Actualizar" Command="{Binding UpdateCommand}" Style="{StaticResource BotonWarning}" Margin="5"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
